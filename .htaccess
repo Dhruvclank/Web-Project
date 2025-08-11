@@ -1,0 +1,19 @@
+<IfModule mod_headers.c>
+  Header set X-Frame-Options "SAMEORIGIN"
+  Header set X-Content-Type-Options "nosniff"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+  Header set X-XSS-Protection "1; mode=block"
+  Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+  Header set Content-Security-Policy "default-src 'self' 'unsafe-inline' 'unsafe-eval' data: https:; img-src 'self' data: https:;"
+</IfModule>
+
+# Use home.php as the default file
+DirectoryIndex home.php index.php index.html
+
+# Do not allow folder listings
+Options -Indexes
+
+# Block access to sensitive files
+<FilesMatch "\.(env|sql|md|gitignore|yml|yaml)$">
+  Require all denied
+</FilesMatch>
